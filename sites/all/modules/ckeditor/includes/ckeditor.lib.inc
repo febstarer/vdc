@@ -889,14 +889,17 @@ function ckeditor_profile_settings_compile($global_profile, $profile) {
     $settings['loadPlugins'] = ckeditor_plugins_render($conf['loadPlugins']);
 
     if (array_key_exists('media', $settings['loadPlugins']) && module_exists('media')) {
-      module_load_include('inc', 'media', 'includes/media.browser');
+      /*module_load_include('inc', 'media', 'includes/media.browser');
       $javascript = media_browser_js();
       foreach ($javascript as $key => $definitions) {
         foreach ($definitions as $definition) {
           $function = 'drupal_add_' . $key;
           call_user_func_array($function, $definition);
         }
-      }
+      }*/
+      // as of https://www.drupal.org/node/2455391#comment-9943365
+      drupal_add_library('media', 'media_browser');
+      drupal_add_library('media', 'media_browser_settings');
       drupal_add_js(drupal_get_path('module', 'ckeditor') . '/plugins/media/library.js', array('scope' => 'footer', 'weight' => -20));
     }
   }

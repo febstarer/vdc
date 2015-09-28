@@ -1,0 +1,257 @@
+/**
+ * @file
+ * Page modules
+ *
+ */
+
+#header {
+	position: relative;
+}
+
+/**
+ * Branding header.
+ */
+
+/* Wrapping link for logo. */
+.header__logo {
+  float: left; /* LTR */
+  margin: 0;
+  padding: 0;
+}
+
+/* Logo image. */
+.header__logo-image {
+  vertical-align: bottom;
+}
+
+/* Wrapper for website name and slogan. */
+.header__name-and-slogan {
+  float: left;
+}
+
+/* The name of the website. */
+.header__site-name {
+  margin: 0;
+  @include adjust-font-size-to( $h1-font-size );
+}
+
+/* The link around the name of the website. */
+.header__site-link {
+  &:link,
+  &:visited {
+    color: #000;
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+/* The slogan (or tagline) of a website. */
+.header__site-slogan {
+  margin: 0;
+}
+
+/* The secondary menu (login, etc.) */
+.header__secondary-menu {
+  float: right; /* LTR */
+}
+
+/* Wrapper for any blocks placed in the header region. */
+.header__region {
+  /* Clear the logo. */
+  clear: both;
+}
+
+/**
+ * Navigation bar.
+ */
+#navigation {
+  @media screen and (max-width: $mobile_menu_min_width) {
+    display: none;
+  }
+  .block {
+    margin-bottom: 0;
+  }
+
+  .block-menu .block__title,
+  .block-menu-block .block__title {
+    @extend %element-invisible;
+  }
+
+  /* Main menu and secondary menu links and menu block links. */
+  .links,
+  .menu {
+    margin: 0;
+    padding: 0;
+    text-align: left; /* LTR */
+
+    li {
+    	position: relative;
+      float: left; /* LTR */
+      padding: 0 10px 0 0; /* LTR */
+      list-style-type: none;
+      list-style-image: none;
+      .menu {
+      	display: none;
+	      position: absolute;
+	      top: 1em;
+	      left: 0;
+	      padding: 8px 4px 6px;
+	      width: 200px;
+	      background: white;
+	      border: 1px solid black;
+	      border-top: none;
+	      li {
+	      	float: none;
+	      	padding: 0;
+	      	line-height: 1.25;
+	      	margin: 0 0 .4em;
+	      }
+	    }
+	    &:hover {
+	    	.menu {
+      		display: block;
+      	}
+	    }
+    }
+  }
+}
+
+/* responsive menu */
+.mobile-menu {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  @media screen and (min-width: $mobile_menu_min_width) {
+    display: none;
+  }
+  &.opened {
+    width: 86%;
+    height: 100%;
+    nav > ul.menu {
+      display: block;
+    }
+  }
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 50px;
+    height: 50px;
+    outline: none;
+    text-indent: -500em;
+    background-image: url("../images/mobile_menu_btn.png");
+    background-color: white;
+    background-position: 0 0;
+    z-index: 2;
+    border: none;
+  }
+  &.opened button {
+    background-position: 0 -50px;
+  }
+  nav {
+    > ul.menu {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      z-index: 1;
+      background: white;
+      border-left: 1px solid black;
+    }
+    li {
+      ul {
+        display: none;
+      }
+      &.active-trail ul {
+        display: block;
+        li {
+
+        }
+      }
+      a {
+        display: block;
+        font-size: 13px;
+        text-align: left;
+        padding: 10px;
+        line-height: 1.4;
+      }
+    }
+  }
+}
+
+/* language switcher */
+#block-locale-language_content {
+  @media screen and (max-width: $mobile_menu_min_width) {
+    display: none;
+  }
+	position: absolute;
+	top: 0;
+	right: 0;
+	li {
+		display: inline;
+	}
+}
+
+/* cookies message */
+.cookies-message {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  p {
+    position: relative;
+    padding: 10px 30px 10px 10px;
+    margin: 0 auto;
+    color: #fff;
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+    [data-action="close"] {
+      padding: 3px;
+      font-size: 11px;
+      color: white;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 10px;
+      right: 0;
+      background: black;
+    }
+    @media screen and (min-width: $max_wrapper_width) {
+      width: $max_wrapper_width;
+    }
+  }
+}
+
+/* This is how we do fluid columns: */
+#SOME .item-list > ul {
+  $zen-column-count: 3;
+  $zen-gutter-width: 10px;
+  @include zen-grid-container();
+  .views-row {
+    @include simple-column($zen-column-count, $zen-gutter-width);
+  }
+}
+
+/* Article */
+article.node {
+	.field-name-body {
+		p {
+			font-size: 16px;
+		}
+	}
+}

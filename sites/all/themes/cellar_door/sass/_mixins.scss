@@ -1,0 +1,85 @@
+// @file
+// Custom sass mixins
+//
+// Define the custom mixins for your project here.
+// http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#defining_a_mixin
+
+// Makes an element visually hidden, but accessible.
+// @see http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+@mixin element-invisible {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+    clip: rect(1px 1px 1px 1px); // IE6 and IE7 use the wrong syntax.
+  }
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+// Turns off the element-invisible effect.
+@mixin element-invisible-off {
+  position: static !important;
+  clip: auto;
+  height: auto;
+  width: auto;
+  overflow: auto;
+}
+
+// Makes an element visually hidden by default, but visible when focused.
+@mixin element-focusable {
+  @include element-invisible;
+
+  &:active,
+  &:focus {
+    @include element-invisible-off;
+  }
+}
+
+/* Zen Grids fails in simple fluid columns, as gutter calculations do not work, probably due to box sizing, so we are doing our own 'simple grid system'. Maybe we do not need at all the zen grids }:( */
+@mixin simple-column-container {
+  @include pie-clearfix;
+}
+@mixin simple-column($column-count, $gutter-width) {
+  float: left;
+  width: -webkit-calc(((100% - (($column-count - 1) * $gutter-width)) / $column-count));
+  width: -moz-calc(((100% - (($column-count - 1) * $gutter-width)) / $column-count));
+  width: calc(((100% - (($column-count - 1) * $gutter-width)) / $column-count));
+  &:nth-child(n) {
+    margin-right: $gutter-width;
+  }
+  &:nth-child(#{$column-count}n) {
+    margin-right: 0;
+  }
+}
+
+// buttons
+@mixin buttonize() {
+  display: inline-block;
+  font-size: 14px;
+  padding: 12px;
+  color: white;
+  text-align: center;
+  line-height: 1;
+  max-width: 100%;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background: $main-color;
+}
+
+// icons
+@mixin iconize ($left: 0, $top: 0, $block_width: 1, $block_height: 1) {
+  display: block;
+  width: (25px * $block_width);
+  height: (25px * $block_height);
+  background: url("../images/sprite.png") no-repeat $left $top;
+}
+
+// rgba background color
+@mixin rgba-background-color ($r, $g, $b, $a){
+  background-color: rgba($r, $g, $b, $a);
+  html.no-rgba & {
+    background-color: rgb($r, $g, $b);
+  }
+}
